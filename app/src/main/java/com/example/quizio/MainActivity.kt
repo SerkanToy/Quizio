@@ -41,6 +41,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.quizio.screens.LoginScreen
 import com.example.quizio.ui.theme.Mor
 import com.example.quizio.ui.theme.QuizioTheme
 import com.example.quizio.ui.theme.arkaPlan
@@ -53,7 +54,8 @@ class MainActivity : ComponentActivity() {
             QuizioTheme {
                 Surface(modifier = Modifier.fillMaxSize(),
                         color = Color.White) {
-                    MainScreen()
+                    LoginScreen()
+                    //MainScreen()
                 }
             }
         }
