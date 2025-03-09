@@ -44,20 +44,22 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.quizio.R
+import com.example.quizio.Screen
 import com.example.quizio.ui.theme.Mor
 import com.example.quizio.ui.theme.grii
 import com.example.quizio.ui.theme.kırlıBeyaz
 
 @Composable
-fun RegisterScreen()
+fun RegisterScreen(navController: NavHostController)
 {
-    SignUp()
+    SignUp(navController)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignUp()
+fun SignUp(navController: NavHostController)
 {
     Scaffold(modifier = Modifier.fillMaxSize(1f).background(color = kırlıBeyaz),
         topBar = {
@@ -70,13 +72,14 @@ fun SignUp()
                     titleContentColor = Color.White),
                 navigationIcon = {
                     Icon(
-                        modifier = Modifier.padding(10.dp).clickable { },
+                        modifier = Modifier.padding(10.dp).clickable {
+                            navController.popBackStack()
+                        },
                         imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
                         contentDescription = "Back",
                         tint = Color.White
                     )
-                },
-                modifier = Modifier.padding(start = 10.dp)
+                }
             )
         }
     ){ it
@@ -95,7 +98,8 @@ fun SignUp()
         }
 
         Column(modifier = Modifier.fillMaxSize(1f).padding(top = 140.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.SpaceBetween) {
-            Box(modifier = Modifier.fillMaxWidth(0.8f).fillMaxHeight(0.60f).background(color = Color.White)){
+            Box(modifier = Modifier.fillMaxWidth(0.8f).fillMaxHeight(0.60f)
+                .clip(RoundedCornerShape(bottomStart = 30.dp, bottomEnd = 30.dp, topStart = 30.dp, topEnd = 30.dp)).background(color = Color.White)){
                 Column(modifier = Modifier.fillMaxSize(1f),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.SpaceEvenly) {
@@ -105,13 +109,13 @@ fun SignUp()
                         Button(modifier = Modifier.fillMaxWidth(0.5f),
                             colors =  ButtonDefaults.buttonColors(containerColor = Color.White),
                             onClick = {
-                                Log.e("singin","singin tıklandı")
+                                navController.navigate(Screen.LoginScreen.route)
                             }) { Text(text = "Sign In", color = grii, fontSize = 20.sp) }
                         Spacer(modifier = Modifier.width(1.dp).height(40.dp).background(color = kırlıBeyaz))
                         Button(modifier = Modifier.fillMaxWidth(1f),
                             colors =  ButtonDefaults.buttonColors(containerColor = Color.White),
                             onClick = {
-                                Log.e("singup","singup tıklandı")
+                                navController.navigate(Screen.LoginScreen.route)
                             }) { Text(text = "Sign Up", color = Mor, fontSize = 20.sp) }
                     }
                     Text("Fullname",modifier = Modifier.fillMaxWidth(1f).padding(start = 17.dp),fontWeight = FontWeight.Medium)

@@ -53,7 +53,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.quizio.R
+import com.example.quizio.Screen
 import com.example.quizio.ui.theme.Mor
 import com.example.quizio.ui.theme.arkaPlan
 import com.example.quizio.ui.theme.grii
@@ -61,9 +63,9 @@ import com.example.quizio.ui.theme.kırlıBeyaz
 
 
 @Composable
-fun LoginScreen()
+fun LoginScreen(navController: NavHostController)
 {
-    SignIn()
+    SignIn(navController)
     //SignUp()
 }
 
@@ -71,7 +73,7 @@ fun LoginScreen()
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignIn()
+fun SignIn(navController: NavHostController)
 {
     Scaffold(modifier = Modifier.fillMaxSize(1f).background(color = kırlıBeyaz),
         topBar = {
@@ -84,13 +86,14 @@ fun SignIn()
                     titleContentColor = Color.White),
                 navigationIcon = {
                     Icon(
-                        modifier = Modifier.padding(10.dp).clickable { },
+                        modifier = Modifier.padding(10.dp).clickable {
+                            navController.popBackStack()
+                        },
                         imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
                         contentDescription = "Back",
                         tint = Color.White
                     )
-                },
-                modifier = Modifier.padding(start = 10.dp)
+                }
             )
         }
     ){ it
@@ -108,24 +111,27 @@ fun SignIn()
             }
         }
 
-        Column(modifier = Modifier.fillMaxSize(1f), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.SpaceEvenly) {
-            Box(modifier = Modifier.fillMaxWidth(0.8f).fillMaxHeight(0.4f).padding(top = 50.dp).background(color = Color.White)){
-                Column(modifier = Modifier.fillMaxSize(1f),
+        Column(modifier = Modifier.fillMaxSize(1f).padding(top = 85.dp).background(color = Color.Transparent),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceEvenly) {
+            Box(modifier = Modifier.fillMaxWidth(0.8f).fillMaxHeight(0.4f)
+                .clip(RoundedCornerShape(bottomStart = 30.dp, bottomEnd = 30.dp, topStart = 30.dp, topEnd = 30.dp)).background(color = Color.White)){
+                Column(modifier = Modifier.fillMaxSize(1f).background(color = Color.Transparent),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.SpaceEvenly) {
 
-                    Row(modifier = Modifier.fillMaxWidth(1f))
+                    Row(modifier = Modifier.fillMaxWidth(1f).background(color = Color.Transparent))
                     {
                         Button(modifier = Modifier.fillMaxWidth(0.5f),
                             colors =  ButtonDefaults.buttonColors(containerColor = Color.White),
                             onClick = {
-                                Log.e("singin","singin tıklandı")
+                                navController.navigate(Screen.LoginScreen.route)
                             }) { Text(text = "Sign In", color = Color.Black, fontSize = 20.sp) }
                         Spacer(modifier = Modifier.width(1.dp).height(50.dp).background(color = Color.Black))
                         Button(modifier = Modifier.fillMaxWidth(1f),
                             colors =  ButtonDefaults.buttonColors(containerColor = Color.White),
                             onClick = {
-                                Log.e("singup","singup tıklandı")
+                                navController.navigate(Screen.RegisterScreen.route)
                             }) { Text(text = "Sign Up", color = Color.Black, fontSize = 20.sp) }
                     }
                     Text("Email",modifier = Modifier.fillMaxWidth(0.8f),fontWeight = FontWeight.Bold)
@@ -198,8 +204,3 @@ fun SignIn()
     }
 }
 
-@Composable
-@Preview(showBackground = true)
-fun previewHome(){
-    LoginScreen()
-}
