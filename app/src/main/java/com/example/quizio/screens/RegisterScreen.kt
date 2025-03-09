@@ -1,6 +1,5 @@
 package com.example.quizio.screens
 
-import android.R.attr.fontWeight
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -17,7 +16,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -25,21 +23,17 @@ import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -48,36 +42,28 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.quizio.R
 import com.example.quizio.ui.theme.Mor
-import com.example.quizio.ui.theme.arkaPlan
 import com.example.quizio.ui.theme.grii
 import com.example.quizio.ui.theme.kırlıBeyaz
 
-
 @Composable
-fun LoginScreen()
+fun RegisterScreen()
 {
-    SignIn()
-    //SignUp()
+    SignUp()
 }
-
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignIn()
+fun SignUp()
 {
     Scaffold(modifier = Modifier.fillMaxSize(1f).background(color = kırlıBeyaz),
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = "Sign In")
+                    Text(text = "Sign Up")
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Mor,
@@ -108,8 +94,8 @@ fun SignIn()
             }
         }
 
-        Column(modifier = Modifier.fillMaxSize(1f), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.SpaceEvenly) {
-            Box(modifier = Modifier.fillMaxWidth(0.8f).fillMaxHeight(0.4f).padding(top = 50.dp).background(color = Color.White)){
+        Column(modifier = Modifier.fillMaxSize(1f).padding(top = 140.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.SpaceBetween) {
+            Box(modifier = Modifier.fillMaxWidth(0.8f).fillMaxHeight(0.60f).background(color = Color.White)){
                 Column(modifier = Modifier.fillMaxSize(1f),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.SpaceEvenly) {
@@ -120,16 +106,16 @@ fun SignIn()
                             colors =  ButtonDefaults.buttonColors(containerColor = Color.White),
                             onClick = {
                                 Log.e("singin","singin tıklandı")
-                            }) { Text(text = "Sign In", color = Color.Black, fontSize = 20.sp) }
-                        Spacer(modifier = Modifier.width(1.dp).height(50.dp).background(color = Color.Black))
+                            }) { Text(text = "Sign In", color = grii, fontSize = 20.sp) }
+                        Spacer(modifier = Modifier.width(1.dp).height(40.dp).background(color = kırlıBeyaz))
                         Button(modifier = Modifier.fillMaxWidth(1f),
                             colors =  ButtonDefaults.buttonColors(containerColor = Color.White),
                             onClick = {
                                 Log.e("singup","singup tıklandı")
-                            }) { Text(text = "Sign Up", color = Color.Black, fontSize = 20.sp) }
+                            }) { Text(text = "Sign Up", color = Mor, fontSize = 20.sp) }
                     }
-                    Text("Email",modifier = Modifier.fillMaxWidth(0.8f),fontWeight = FontWeight.Bold)
-                    OutlinedTextField(
+                    Text("Fullname",modifier = Modifier.fillMaxWidth(1f).padding(start = 17.dp),fontWeight = FontWeight.Medium)
+                    OutlinedTextField(modifier = Modifier.fillMaxWidth(1f).padding(start = 17.dp, end = 17.dp),
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.Person,
@@ -139,10 +125,25 @@ fun SignIn()
                         },
                         value = "",
                         onValueChange = {  },
-                        label = { Text("Email") }
+                        label = { Text("Fullname", color = grii) }
                     )
-                    Text("Password",modifier = Modifier.fillMaxWidth(0.8f),fontWeight = FontWeight.Bold)
+                    Text("EMail",modifier = Modifier.fillMaxWidth(1f).padding(start = 17.dp),fontWeight = FontWeight.Bold)
                     OutlinedTextField(
+                        modifier = Modifier.fillMaxWidth(1f).padding(start = 17.dp, end = 17.dp),
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Default.Email,
+                                contentDescription = null,
+                                tint = grii
+                            )
+                        },
+                        value = "",
+                        onValueChange = {  },
+                        label = { Text("EMail", color = grii) }
+                    )
+                    Text("Password",modifier = Modifier.fillMaxWidth(1f).padding(start = 17.dp),fontWeight = FontWeight.Bold)
+                    OutlinedTextField(
+                        modifier = Modifier.fillMaxWidth(1f).padding(start = 17.dp, end = 17.dp),
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.Lock,
@@ -152,15 +153,58 @@ fun SignIn()
                         },
                         value = "",
                         onValueChange = {  },
-                        label = { Text("Password") }
+                        label = { Text("Password", color = grii) }
                     )
 
-                    Text("Forgot password?",modifier = Modifier.fillMaxWidth(0.8f), textAlign = TextAlign.End)
+                    Row(modifier = Modifier.fillMaxWidth(1f).padding(start = 20.dp, end = 20.dp),horizontalArrangement = Arrangement.SpaceBetween) {
+                        Row (modifier = Modifier.fillMaxWidth(0.5f).padding(end = 5.dp).border(width = 1.dp,
+                            color = grii,
+                            shape = RoundedCornerShape(bottomEnd = 30.dp, bottomStart = 30.dp, topStart = 30.dp, topEnd = 30.dp)),
+                            verticalAlignment = Alignment.CenterVertically) {
+                            RadioButton(
+                                selected = true,
+                                onClick = {  },
+                                enabled = true,
+                                colors = RadioButtonDefaults.colors(
+                                    unselectedColor = grii,
+                                    selectedColor = grii
+                                )
+                            )//RadioButton
+                            Text(text = "Men", modifier = Modifier.padding(start = 8.dp))
+                        }
+                        Row(modifier = Modifier.fillMaxWidth(1f).padding(start = 5.dp).border(width = 1.dp,
+                            color = grii,
+                            shape = RoundedCornerShape(bottomEnd = 30.dp, bottomStart = 30.dp, topStart = 30.dp, topEnd = 30.dp)), verticalAlignment = Alignment.CenterVertically) {
+                            RadioButton(
+                                selected = false,
+                                onClick = {  },
+                                enabled = true,
+                                colors = RadioButtonDefaults.colors(
+                                    unselectedColor = grii,
+                                    selectedColor = grii
+                                )
+                            )//RadioButton
+                            Text(text = "Women", modifier = Modifier.padding(start = 8.dp))
+                        }
+                    }
+
+                    Row (modifier = Modifier.fillMaxWidth(1f).padding(start = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically) {
+                        RadioButton(
+                            selected = true,
+                            onClick = {  },
+                            enabled = true,
+                            colors = RadioButtonDefaults.colors(
+                                selectedColor = grii
+                            )
+                        )//RadioButton
+                        Text(text = "I accept to all Term, Privacy and Fees", modifier = Modifier.padding(start = 1.dp))
+                    }
                 }
             }
 
             Button(modifier = Modifier.fillMaxWidth(0.8f),colors =  ButtonDefaults.buttonColors(containerColor = Mor),
-                onClick = {  }) { Text(text = "Sign In") }
+                onClick = {  }) { Text(text = "Sign Up") }
 
             Row(modifier = Modifier.fillMaxWidth(1f), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center){
                 Spacer(modifier = Modifier.background(color = Color.Black).width(100.dp).height(0.5.dp))
@@ -191,15 +235,9 @@ fun SignIn()
                 }
             }
 
-            Text(text = "Don’t have an account?")
+            Text(text = "Already have an account?")
 
         }
 
     }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun previewHome(){
-    LoginScreen()
 }
